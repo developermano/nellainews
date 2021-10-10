@@ -23,7 +23,6 @@ class dbfunction{
   }
   
    return $prefinalresult;
-    return $res;
    }
    function addnews(){
        
