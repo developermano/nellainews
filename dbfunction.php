@@ -12,8 +12,9 @@ class dbfunction{
    }
 
    function get_Today_News(){
+   $date=date('Y-m-d');
     $stmt=$this->dbconn->prepare("SELECT * from news WHERE date=?");
-    $stmt->bind_param("s",date('Y-m-d'));
+    $stmt->bind_param("s",$date);
     $execute=$stmt->execute();
     $result=$stmt->get_result();
    $this->dbconn->close();
@@ -24,8 +25,13 @@ class dbfunction{
   
    return $prefinalresult;
    }
-   function addnews(){
-       
+   function addnews($title,$fullnews,$img,$date){
+      $stmt=$this->dbconn->prepare("INSERT INTO news (title,fullnews,img,date) VALUES (?, ?, ?,?)");
+      $stmt->bind_param("ssss",$title,$fullnews,$img,$date);
+      $execute=$stmt->execute();
+      $stmt->close();
+      $res['status']=$execute;
+      return $res;
    }
 }
 ?>
